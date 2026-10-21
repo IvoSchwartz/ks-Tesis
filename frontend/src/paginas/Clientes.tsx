@@ -84,7 +84,7 @@ export function Clientes() {
             texto={
               busqueda
                 ? "Probá con otra parte del nombre."
-                : "Cuando haya clientes asignados a vos, los vas a ver acá."
+                : "Cuando haya clientes para mostrar, los vas a ver acá."
             }
           />
         }
