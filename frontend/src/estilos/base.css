@@ -1,0 +1,436 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#raiz {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente-texto);
+  font-size: var(--tam-cuerpo);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  color: var(--azul);
+  margin: 0;
+  line-height: 1.15;
+}
+h1 {
+  font-size: var(--tam-titulo-pantalla);
+}
+h2 {
+  font-size: var(--tam-titulo-seccion);
+}
+
+a {
+  color: var(--azul);
+  font-weight: 600;
+}
+
+/* Foco visible para quien usa teclado */
+:focus-visible {
+  outline: 3px solid var(--azul-2);
+  outline-offset: 2px;
+}
+
+/* ---------- Botones ---------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--alto-minimo);
+  padding: 0 20px;
+  border-radius: var(--radio);
+  border: 2px solid transparent;
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 80ms ease, background-color 120ms ease;
+}
+.boton:active:not(:disabled) {
+  transform: scale(0.98); /* al apretar se achica apenas */
+}
+.boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.boton-principal {
+  background: var(--naranja);
+  color: var(--azul); /* texto azul marino: el blanco sobre naranja no cumple el contraste */
+}
+.boton-contorno {
+  background: transparent;
+  border-color: var(--azul);
+  color: var(--azul);
+}
+.boton-discreto {
+  background: transparent;
+  color: var(--azul);
+  padding: 0 12px;
+}
+/* Hover solo con mouse */
+@media (hover: hover) {
+  .boton-principal:hover:not(:disabled) {
+    background: var(--naranja-hover);
+  }
+  .boton-contorno:hover:not(:disabled) {
+    background: var(--neutro-fondo);
+  }
+  .boton-discreto:hover:not(:disabled) {
+    background: var(--neutro-fondo);
+  }
+}
+
+/* ---------- Campos ---------- */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.campo label {
+  font-weight: 600;
+}
+.campo input,
+.campo select {
+  min-height: var(--alto-minimo);
+  padding: 0 12px;
+  border: 1.5px solid var(--borde-campo);
+  border-radius: var(--radio);
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+}
+.campo input[aria-invalid="true"],
+.campo select[aria-invalid="true"] {
+  border-color: var(--error-texto);
+}
+.campo .ayuda {
+  color: var(--texto-2);
+  font-size: 13px;
+}
+.campo .error-campo {
+  color: var(--error-texto);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ---------- Tablas ---------- */
+.tabla-caja {
+  overflow-x: auto; /* si no entra, scroll horizontal dentro de su cuadro */
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+}
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+.tabla th {
+  background: var(--neutro-fondo);
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tabla th,
+.tabla td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--linea);
+  border-right: 1px solid var(--linea);
+  vertical-align: top;
+}
+.tabla th:last-child,
+.tabla td:last-child {
+  border-right: 0;
+}
+.tabla tbody tr:last-child td {
+  border-bottom: 0;
+}
+.lista-simple {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cuit {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- Chips de estado ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: var(--alto-chip);
+  padding: 0 12px;
+  border-radius: var(--radio);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chip-correcto {
+  background: var(--correcto-fondo);
+  color: var(--correcto-texto);
+}
+.chip-atencion {
+  background: var(--atencion-fondo);
+  color: var(--atencion-texto);
+}
+.chip-error {
+  background: var(--error-fondo);
+  color: var(--error-texto);
+}
+.chip-neutro {
+  background: var(--neutro-fondo);
+  color: var(--neutro-texto);
+}
+
+/* ---------- Estados reutilizables ---------- */
+.estado-caja {
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 640px;
+}
+.estado-caja p {
+  margin: 0;
+  color: var(--texto-2);
+}
+.cargando {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.barra-gris {
+  height: 20px;
+  border-radius: var(--radio);
+  background: linear-gradient(90deg, var(--neutro-fondo), var(--linea), var(--neutro-fondo));
+  background-size: 200% 100%;
+  animation: brillo 1.4s linear infinite;
+}
+@keyframes brillo {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.aviso {
+  border-radius: var(--radio);
+  padding: 10px 14px;
+  font-weight: 600;
+}
+.aviso-correcto {
+  background: var(--correcto-fondo);
+  color: var(--correcto-texto);
+}
+.aviso-error {
+  background: var(--error-fondo);
+  color: var(--error-texto);
+}
+
+/* ---------- Estructura general ---------- */
+.estructura {
+  display: grid;
+  grid-template-columns: var(--ancho-menu) 1fr;
+  min-height: 100%;
+}
+.menu {
+  background: var(--azul);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  gap: 24px;
+}
+.menu :focus-visible {
+  outline-color: #fff;
+}
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  font-size: 20px;
+}
+/* Monograma de reemplazo hasta contar con el logo original en vector */
+.monograma {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #fff;
+  border-radius: var(--radio);
+  font-size: 18px;
+}
+.menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.menu nav a {
+  display: flex;
+  align-items: center;
+  min-height: var(--alto-minimo);
+  padding: 0 14px;
+  border-radius: var(--radio);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.menu nav a.activo {
+  background: var(--azul-2);
+}
+@media (hover: hover) {
+  .menu nav a:hover {
+    background: var(--azul-2);
+  }
+}
+.menu-pie {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+.menu-pie .boton-contorno {
+  border-color: #fff;
+  color: #fff;
+}
+.contenido {
+  padding: 32px 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+.encabezado-pantalla {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.barra-busqueda {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.barra-busqueda .campo {
+  flex: 1 1 260px;
+  max-width: 420px;
+}
+.panel {
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.formulario-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.acciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+.datos dt {
+  color: var(--texto-2);
+  font-size: 13px;
+  font-weight: 600;
+}
+.datos dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+/* ---------- Ingreso ---------- */
+.ingreso {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--azul);
+}
+.ingreso-tarjeta {
+  width: 100%;
+  max-width: 420px;
+  background: var(--superficie);
+  border-radius: var(--radio);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ingreso-tarjeta .monograma {
+  border-color: var(--azul);
+  color: var(--azul);
+}
+
+/* Pantallas angostas: el menú pasa arriba */
+@media (max-width: 860px) {
+  .estructura {
+    grid-template-columns: 1fr;
+  }
+  .menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  .menu-pie {
+    margin-top: 0;
+    margin-left: auto;
+  }
+  .contenido {
+    padding: 24px 16px 40px;
+  }
+}
+
+/* Se apagan las animaciones si la persona pidió menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

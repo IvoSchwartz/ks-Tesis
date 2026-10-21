@@ -1,0 +1,37 @@
+/* Tokens de diseño: colores, tipografía y medidas definidos UNA sola vez (Guia_de_diseno_KS.md). */
+:root {
+  /* Colores */
+  --azul: #0b2645;
+  --azul-2: #1d3a62;
+  --naranja: #fa8500; /* único acento: solo botón principal */
+  --naranja-hover: #e87d00;
+  --fondo: #f4f5f8;
+  --superficie: #ffffff;
+  --linea: #dde1e9;
+  --texto: #1b2433;
+  --texto-2: #556072;
+  --borde-campo: #8590a5;
+
+  /* Estados (siempre con texto, nunca solo color) */
+  --correcto-fondo: #e2f3e9;
+  --correcto-texto: #17653f;
+  --atencion-fondo: #fff0cf;
+  --atencion-texto: #7a4b00;
+  --error-fondo: #fde3e0;
+  --error-texto: #9b1c1c;
+  --neutro-fondo: #eceff4;
+  --neutro-texto: #3e4a5d;
+
+  /* Tipografía */
+  --fuente-titulo: "Barlow", system-ui, sans-serif;
+  --fuente-texto: "Open Sans", system-ui, sans-serif;
+  --tam-cuerpo: 15px;
+  --tam-titulo-pantalla: 36px;
+  --tam-titulo-seccion: 22px;
+
+  /* Medidas */
+  --radio: 8px; /* una sola esquina redondeada */
+  --alto-minimo: 44px;
+  --alto-chip: 28px;
+  --ancho-menu: 248px;
+}

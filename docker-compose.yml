@@ -1,0 +1,48 @@
+# Entorno local: base de datos, backend y frontend.
+# Uso: copiá .env.example como .env y corré `docker compose up --build`.
+# Backend en http://localhost:8000 (documentación en /docs), frontend en http://localhost:5173.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ks_migrador
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ks
+    ports:
+      - "5432:5432"
+    volumes:
+      - ks_datos:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ks_migrador -d ks"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build: ./backend
+    environment:
+      ENTORNO: ${ENTORNO:-desarrollo}
+      DATABASE_URL_MIGRADOR: postgresql+psycopg://ks_migrador:${POSTGRES_PASSWORD}@db:5432/ks
+      DATABASE_URL_APP: postgresql+psycopg://ks_app:${APP_DB_PASSWORD}@db:5432/ks
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_HORAS: ${JWT_HORAS:-8}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  ks_datos:
